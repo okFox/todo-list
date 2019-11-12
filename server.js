@@ -20,7 +20,7 @@ app.use(express.json()); // enable reading incoming json data
 // API Routes
 
 // *** TODOS ***
-app.get('/api/todos', async (req, res) => {
+app.get('/api/todos', async(req, res) => {
 
     try {
         const result = await client.query(`
@@ -38,7 +38,7 @@ app.get('/api/todos', async (req, res) => {
 
 });
 
-app.post('/api/todos', async (req, res) => {
+app.post('/api/todos', async(req, res) => {
     const todo = req.body;
 
     try {
@@ -57,7 +57,7 @@ app.post('/api/todos', async (req, res) => {
     }
 });
 
-app.put('/api/todos/:id', async (req, res) => {
+app.put('/api/todos/:id', async(req, res) => {
     const id = req.params.id;
     const todo = req.body;
 
@@ -76,7 +76,7 @@ app.put('/api/todos/:id', async (req, res) => {
     }
 });
 
-app.delete('/api/todos/:id', async (req, res) => {
+app.delete('/api/todos/:id', async(req, res) => {
     // get the id that was passed in the route:
     const id = 0; // ???
 
