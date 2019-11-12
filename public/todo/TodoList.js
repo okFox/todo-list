@@ -12,7 +12,9 @@ class TodoList extends Component {
     }
     renderHTML() {
         return /*html*/`
-            
+            <li class='todo-item'>
+
+            </li>
         `;
     }
 }

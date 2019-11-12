@@ -14,7 +14,13 @@ class TodoItem extends Component {
         const todo = this.props.todo;
 
         return /*html*/`
-            
+            <li class='todo-item'>
+                <div>checkbox</div>
+                <div class='task-container'>
+                    <p>"${todo.task}"</p>
+                </div>
+                <div>delete button</div>
+            </li>
         `;
     }
 }

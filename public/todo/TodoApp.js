@@ -17,12 +17,15 @@ class TodoApp extends Component {
         const loading = new Loading({ loading: true });
         dom.appendChild(loading.renderDOM());
 
+        const list = new TodoList({ todos: [] });
+        main.appendChild(list.renderDOM());
         // initial todo load:
         try {
-            
+            const cats = await getTodos();
+            list.update({ cats: cats });
         }
         catch (err) {
-            // display error...
+            main.appendChild(error.renderDOM());
         }
         finally {
             loading.update({ loading: false });
