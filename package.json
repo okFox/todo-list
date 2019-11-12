@@ -29,5 +29,17 @@
   "devDependencies": {
     "eslint": "^6.6.0",
     "nodemon": "^1.19.4"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/okFox/todo-list.git"
+  },
+  "bugs": {
+    "url": "https://github.com/okFox/todo-list/issues"
+  },
+  "homepage": "https://github.com/okFox/todo-list#readme"
 }
