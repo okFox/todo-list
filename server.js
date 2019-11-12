@@ -24,7 +24,8 @@ app.get('/api/todos', async(req, res) => {
 
     try {
         const result = await client.query(`
-            
+            SELECT *
+            FROM todos
         `);
 
         res.json(result.rows);
@@ -37,6 +38,7 @@ app.get('/api/todos', async(req, res) => {
     }
 
 });
+
 
 app.post('/api/todos', async(req, res) => {
     const todo = req.body;
