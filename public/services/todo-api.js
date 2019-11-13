@@ -36,11 +36,25 @@ export function updateTodo(todo) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(todo)
-    })
+    });
 }
 
 export function removeTodo(todoId) {  
     const url = `${URL}/todos/${todoId}`;
-    return fetchWithError(url);
+    return fetchWithError(url, {
+        method: 'DELETE',
+        
+        body: JSON.stringify(todoId)
+    });
+}
+export function getOneTodo(todo) {  
+    const url = `${URL}/todos/${todo.id}`;
+    return fetchWithError(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(todo)
+    });
 }
 

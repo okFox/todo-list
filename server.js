@@ -39,6 +39,27 @@ app.get('/api/todos', async(req, res) => {
 
 });
 
+app.get('/api/todos/:id', async(req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await client.query(`
+            SELECT *
+            FROM todos
+            WHERE id = $1;
+        `,
+        [id]);
+
+        res.json(result.rows);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err.message || err
+        });
+    }
+
+});
+
 
 app.post('/api/todos', async(req, res) => {
     const todo = req.body;
@@ -88,13 +109,14 @@ app.put('/api/todos/:id', async(req, res) => {
 
 app.delete('/api/todos/:id', async(req, res) => {
     // get the id that was passed in the route:
-    
-    const id = 0; // ???
+    const id = req.params.id;
+    //const id = 0; // ???
 
     try {
         const result = await client.query(`
-         
-        `, [/* pass data */]);
+            DELETE FROM todos
+            WHERE   id = $1
+        `, [id]);
         
         res.json(result.rows[0]);
     }
