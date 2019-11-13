@@ -85,7 +85,6 @@ app.post('/api/todos', async(req, res) => {
 app.put('/api/todos/:id', async(req, res) => {
     const id = req.params.id;
     const todo = req.body;
-
     try {
         const result = await client.query(`
             UPDATE  todos
@@ -94,9 +93,8 @@ app.put('/api/todos/:id', async(req, res) => {
             WHERE   id = $1
             RETURNING *;
 
-
         `, [id, todo.task, todo.complete]);
-     
+     console.log(result.rows[0]);
         res.json(result.rows[0]);
     }
     catch (err) {
@@ -117,6 +115,7 @@ app.delete('/api/todos/:id', async(req, res) => {
         const result = await client.query(`
             DELETE FROM todos
             WHERE   id = $1
+            RETURNING *;
         `, [id]);
         
         res.json(result.rows[0]);

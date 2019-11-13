@@ -46,13 +46,13 @@ class TodoApp extends Component {
 //Instantiate List Component
         const todoList = new TodoList({ 
             todos: [],
+
             onUpdate: async todo => {
                 loading.update({ loading: true });
                 error.textcontent = '';
 
-        // initial todo load:
                 try {
-                    const todos = await updateTodo();
+                    const todos = await updateTodo(todo);
                     //saving state
                     const todoState = this.state.todos;
                     const index = todoState.indexOf(todo);
@@ -76,6 +76,7 @@ class TodoApp extends Component {
                     const todos = this.state.todos;
                     const index = todos.indexOf(todo);
                     todos.splice(index, 1);
+                    todoList.update({ todos });
                     
                 }
     

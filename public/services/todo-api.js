@@ -42,11 +42,7 @@ export function updateTodo(todo) {
 export function removeTodo(todoId) {  
     const url = `${URL}/todos/${todoId}`;
     return fetchWithError(url, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-
+        method: 'DELETE'
     });
 }
 export function getOneTodo(todo) {  
