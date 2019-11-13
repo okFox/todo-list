@@ -1,0 +1,6 @@
+li {
+    display: flex;
+    justify-content: space-between; 
+    border: 1px lightgrey solid;
+    margin: 5px; 
+}

@@ -37,7 +37,8 @@ class TodoApp extends Component {
                 finally {
                     loading.update({ loading: false });
                 }
-            }
+            },
+            
         });
 //renderDOM
         main.appendChild(addTodoComponent.renderDOM());
@@ -52,10 +53,10 @@ class TodoApp extends Component {
         // initial todo load:
                 try {
                     const todos = await getTodos();
-                    
-                    // const todoState = this.state.todos;
-                    // const index = todoState.indexOf(todo);
-                    // todo.splice(index, 1, updated);
+                    //saving state
+                    const todoState = this.state.todos;
+                    const index = todoState.indexOf(todo);
+                    todo.splice(index, 1); //removed updated as 3rd param
 
                     todoList.update({ todos });
                 }
@@ -65,10 +66,32 @@ class TodoApp extends Component {
                 finally {
                     loading.update({ loading: false });
                 }
+            },
+            onRemove: async todo => {
+                loading.update({ loading: true });
+                error.textContent = '';
+    
+                try {
+                    await removeTodo(todo.id);
+                    const todoState = this.state.todos;
+                    const index = todoState.indexOf(todo);
+                    todo.splice(index, 1);
+    
+                    todoList.update({ todo });
+                }
+    
+                catch (err) {
+                    main.appendChild(error.renderDOM());
+                }
+                finally {
+                    loading.update({ loading: false });
+                }
             }
         });
+
         main.appendChild(todoList.renderDOM());
 
+//default load:
         try {
             const todos = await getTodos();
             this.state.todos = todos;
