@@ -2,10 +2,10 @@ import Component from '../Component.js';
 
 class TodoItem extends Component {
 
-    onRender(dom) {
+    onRender(list) {
         const todo = this.props.todo;
-        const onUpdate = this.props.onUpdate;
-        const onRemove = this.props.onRemove;
+        //const onUpdate = this.props.onUpdate;
+        //const onRemove = this.props.onRemove;
 
         
     }
