@@ -45,8 +45,8 @@ export function removeTodo(todoId) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(todoId)
+        }
+
     });
 }
 export function getOneTodo(todo) {  
