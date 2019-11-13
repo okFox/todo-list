@@ -43,7 +43,9 @@ export function removeTodo(todoId) {
     const url = `${URL}/todos/${todoId}`;
     return fetchWithError(url, {
         method: 'DELETE',
-        
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(todoId)
     });
 }

@@ -52,12 +52,12 @@ class TodoApp extends Component {
 
         // initial todo load:
                 try {
-                    const todos = await getTodos();
+                    const todos = await updateTodo();
                     //saving state
                     const todoState = this.state.todos;
                     const index = todoState.indexOf(todo);
-                    todo.splice(index, 1); //removed updated as 3rd param
-
+                    todos.splice(index, 1, todos); //removed updated as 3rd param
+                    todos.push(todo);
                     todoList.update({ todos });
                 }
                 catch (err) {
@@ -73,15 +73,18 @@ class TodoApp extends Component {
     
                 try {
                     await removeTodo(todo.id);
-                    const todoState = this.state.todos;
-                    const index = todoState.indexOf(todo);
-                    todo.splice(index, 1);
-    
-                    todoList.update({ todo });
+                    const todos = this.state.todos;
+                    const index = todos.indexOf(todo);
+                    todos.splice(index, 1);
+                    
                 }
     
                 catch (err) {
-                    main.appendChild(error.renderDOM());
+                    //main.appendChild(err.renderDOM());
+                        // display error
+                    error.textContent = err;
+                        // rethrow the error so form knows not to clear the input:
+                    throw err;
                 }
                 finally {
                     loading.update({ loading: false });
