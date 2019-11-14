@@ -11,11 +11,7 @@ class TodoItem extends Component {
         const checkbox = list.querySelector('input[name=is-complete]');
 
         checkbox.addEventListener('click', () => {
-            console.log(checkbox);
-            if (todo.complete) {
-                todo.complete = true;
-            }
-            //todo.complete = !todo.complete;
+            todo.complete = !todo.complete;
             onUpdate(todo);
         });
 
@@ -31,13 +27,9 @@ class TodoItem extends Component {
 
     renderHTML() {
         const todo = this.props.todo;
-        let checked = '';
-        if (todo.complete) {
-            checked = 'checked';
-        }
         return /*html*/`
             <li class='todo-item'>
-                <div><input id="is-complete" name="is-complete" type="checkbox" ${checked} value="${todo.complete}"></div>
+                <div><input id="is-complete" name="is-complete" type="checkbox" value='done' ${todo.complete && 'checked'}></div>
                 <div class='task-container'>
                     <p>"${todo.task}"</p>
                 </div>

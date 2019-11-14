@@ -52,15 +52,15 @@ class TodoApp extends Component {
                 error.textcontent = '';
 
                 try {
-                    const todos = await updateTodo(todo);
+                    const updated = await updateTodo(todo);
                     //saving state
-                    const todoState = this.state.todos;
-                    const index = todoState.indexOf(todo);
-                    todos.splice(index, 1, todos); //removed updated as 3rd param
-                    todos.push(todo);
+                    const todos = this.state.todos;
+                    const index = todos.indexOf(todo);
+                    todos.splice(index, 1, updated); //removed updated as 3rd param
+                    //todos.push(todo);
                     todoList.update({ todos });
                 }
-                catch (err) {
+                catch (error) {
                     main.appendChild(error.renderDOM());
                 }
                 finally {
@@ -80,12 +80,12 @@ class TodoApp extends Component {
                     
                 }
     
-                catch (err) {
+                catch (error) {
                     //main.appendChild(err.renderDOM());
                         // display error
-                    error.textContent = err;
+                    error.textContent = error;
                         // rethrow the error so form knows not to clear the input:
-                    throw err;
+                    throw error;
                 }
                 finally {
                     loading.update({ loading: false });

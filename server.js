@@ -94,7 +94,6 @@ app.put('/api/todos/:id', async(req, res) => {
             RETURNING *;
 
         `, [id, todo.task, todo.complete]);
-     console.log(result.rows[0]);
         res.json(result.rows[0]);
     }
     catch (err) {
