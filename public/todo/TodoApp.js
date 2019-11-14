@@ -50,14 +50,12 @@ class TodoApp extends Component {
             onUpdate: async todo => {
                 loading.update({ loading: true });
                 error.textcontent = '';
-debugger
                 try {
                     const updated = await updateTodo(todo);
                     //saving state
                     const todos = this.state.todos;
                     const index = todos.indexOf(todo);
-                    todos.splice(index, 1, updated); //removed updated as 3rd param
-                    //todos.push(todo);
+                    todos.splice(index, 1, updated);
                     console.log(todos);
 
                     todoList.update({ todos });
@@ -83,7 +81,6 @@ debugger
                 }
     
                 catch (error) {
-                    //main.appendChild(err.renderDOM());
                         // display error
                     error.textContent = error;
                         // rethrow the error so form knows not to clear the input:
@@ -106,7 +103,6 @@ debugger
         }
         catch (err) {
 
-            //main.appendChild(error.renderDOM());
             console.log (err);
         }
         finally {

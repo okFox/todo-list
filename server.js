@@ -107,8 +107,6 @@ app.put('/api/todos/:id', async(req, res) => {
 app.delete('/api/todos/:id', async(req, res) => {
     // get the id that was passed in the route:
     const id = req.params.id;
-    
-    //const id = 0; // ???
 
     try {
         const result = await client.query(`
