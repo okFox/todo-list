@@ -50,7 +50,7 @@ class TodoApp extends Component {
             onUpdate: async todo => {
                 loading.update({ loading: true });
                 error.textcontent = '';
-
+debugger
                 try {
                     const updated = await updateTodo(todo);
                     //saving state
@@ -58,10 +58,12 @@ class TodoApp extends Component {
                     const index = todos.indexOf(todo);
                     todos.splice(index, 1, updated); //removed updated as 3rd param
                     //todos.push(todo);
+                    console.log(todos);
+
                     todoList.update({ todos });
                 }
                 catch (error) {
-                    main.appendChild(error.renderDOM());
+                    main.appendChild(error);
                 }
                 finally {
                     loading.update({ loading: false });
