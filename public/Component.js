@@ -41,7 +41,7 @@ class Component {
         
         const oldRoot = this.rootElement;
         
-        if(!oldRoot) {
+        if (!oldRoot) {
             throw new Error(`"update()" was called on Component "${this.constructor.name}", but no prior render has happened. Be sure to call ".renderDOM()" before using ".update()"`);
         }
 
