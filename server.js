@@ -123,27 +123,6 @@ app.post('/api/todos', async(req, res) => {
     }
 });
 
-        // app.post('/api/users', async(req, res) => {
-
-        //     const id = req.params.id;
-
-        //     try {
-        //         const result = await client.query(`
-        //             INSERT INTO users (id)
-        //             VALUES ($1)
-        //             RETURNING *;
-        //         `,
-        //         [id]);
-
-        //         res.json(result.rows[0]);
-        //     }
-        //     catch (err) {
-        //         console.log(err);
-        //         res.status(500).json({
-        //             error: err.message || err
-        //         });
-        //     }
-        // });
 
 app.put('/api/todos/:id', async(req, res) => {
     const id = req.params.id;
