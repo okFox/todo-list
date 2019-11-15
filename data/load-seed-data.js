@@ -14,7 +14,8 @@ async function run() {
             users.map(async user => {
                 const result = await client.query(`
                     INSERT INTO users (email, hash, display_name)
-                    VALUES ($1, $2, $3);
+                    VALUES ($1, $2, $3)
+                    RETURNING *;
                 `, 
                 [user.email, user.hash, user.displayName]);
                 
@@ -25,7 +26,7 @@ async function run() {
         await Promise.all(
             todos.map(todo => {
                 const user = savedUsers.find(user => {
-                    return user.id === todo.user_id;
+                    return user.id === todo.userId;
                 });
                 const userId = user.id;
                 return client.query(`
@@ -33,7 +34,7 @@ async function run() {
                     VALUES ($1, $2, $3)
                     RETURNING *;
                 `,
-                [ userId, todo.task, todo.complete]);
+                [userId, todo.task, todo.complete]);
             })
         );
 
