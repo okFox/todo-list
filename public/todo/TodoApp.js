@@ -16,18 +16,98 @@ class TodoApp extends Component {
 
         const loading = new Loading({ loading: true });
         dom.appendChild(loading.renderDOM());
+//Instantiate Form Component
+        const addTodoComponent = new AddTodo({
+            onAdd: async newTodo => {
+                loading.update({ loading: true });
+                error.textContent = '';
 
-        // initial todo load:
-        try {
+                try {
+                    const thisTodo = await addTodo(newTodo);
+                    const todos = this.state.todos;
+                    todos.push(thisTodo);
+                    todoList.update({ todos }); //???
+                }
+                catch (err) {
+                    // display error
+                    error.textContent = err;
+                    // rethrow the error so form knows not to clear the input:
+                    throw err;
+                }
+                finally {
+                    loading.update({ loading: false });
+                }
+            },
             
+        });
+//renderDOM
+        main.appendChild(addTodoComponent.renderDOM());
+
+//Instantiate List Component
+        const todoList = new TodoList({ 
+            todos: [],
+
+            onUpdate: async todo => {
+                loading.update({ loading: true });
+                error.textcontent = '';
+                try {
+                    const updated = await updateTodo(todo);
+                    //saving state
+                    const todos = this.state.todos;
+                    const index = todos.indexOf(todo);
+                    todos.splice(index, 1, updated);
+                    console.log(todos);
+
+                    todoList.update({ todos });
+                }
+                catch (error) {
+                    main.appendChild(error);
+                }
+                finally {
+                    loading.update({ loading: false });
+                }
+            },
+            onRemove: async todo => {
+                loading.update({ loading: true });
+                error.textContent = '';
+    
+                try {
+                    await removeTodo(todo.id);
+                    const todos = this.state.todos;
+                    const index = todos.indexOf(todo);
+                    todos.splice(index, 1);
+                    todoList.update({ todos });
+                    
+                }
+    
+                catch (error) {
+                        // display error
+                    error.textContent = error;
+                        // rethrow the error so form knows not to clear the input:
+                    throw error;
+                }
+                finally {
+                    loading.update({ loading: false });
+                }
+            }
+        });
+
+        main.appendChild(todoList.renderDOM());
+
+//default load:
+        try {
+            const todos = await getTodos();
+            this.state.todos = todos;
+
+            todoList.update({ todos });
         }
         catch (err) {
-            // display error...
+
+            console.log (err);
         }
         finally {
             loading.update({ loading: false });
         }
-
     }
 
     renderHTML() {
