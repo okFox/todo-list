@@ -103,14 +103,15 @@ app.get('/api/todos/:id', async(req, res) => {
 
 app.post('/api/todos', async(req, res) => {
     const todo = req.body;
+    const userId = req.userId;
 
     try {
         const result = await client.query(`
-            INSERT INTO todos (task, complete)
-            VALUES ($1, $2)
+            INSERT INTO todos (user_id, task, complete)
+            VALUES ($1, $2, $3)
             RETURNING *;
         `,
-        [todo.task, todo.complete]);
+        [userId, todo.task, todo.complete]);
 
         res.json(result.rows[0]);
     }
@@ -121,6 +122,28 @@ app.post('/api/todos', async(req, res) => {
         });
     }
 });
+
+        // app.post('/api/users', async(req, res) => {
+
+        //     const id = req.params.id;
+
+        //     try {
+        //         const result = await client.query(`
+        //             INSERT INTO users (id)
+        //             VALUES ($1)
+        //             RETURNING *;
+        //         `,
+        //         [id]);
+
+        //         res.json(result.rows[0]);
+        //     }
+        //     catch (err) {
+        //         console.log(err);
+        //         res.status(500).json({
+        //             error: err.message || err
+        //         });
+        //     }
+        // });
 
 app.put('/api/todos/:id', async(req, res) => {
     const id = req.params.id;
